@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ritu Animation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+
+      background: #fff0f6;
+      overflow: hidden;
+      font-family: 'Pacifico', cursive;
+      text-align: center;
+    }
+
+    #ritu {
+      font-size: 5vh;
+      color: #d63384;
+      opacity: 0;
+      margin-top: 10vh;
+      animation: fadeInOut 5s forwards;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    .shape {
+      position: absolute;
+      width: 3vh;
+      height: 3vh;
+      animation: fall 2.5s linear forwards;
+    }
+
+    .heart, .star {
+      transform: rotate(45deg);
+    }
+
+    .heart {
+      background: pink;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 5vh;
+      height: vh;
+      background: inherit;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    .star {
+      clip-path: polygon(
+        50% 0%,
+        61% 35%,
+        98% 35%,
+        68% 57%,
+        79% 91%,
+        50% 70%,
+        21% 91%,
+        32% 57%,
+        2% 35%,
+        39% 35%
+      );
+      background: yellow;
+    }
+
+    @keyframes fall {
+      0% { top: -30px; opacity: 1; }
+      100% { top: 100vh; opacity: 0; }
+    }
+
+    #message {
+      display: none;
+      font-size: 5vh;
+      color: #6f42c1;
+      margin-top: 50px;
+    }
+
+    .album-img {
+      display: none;
+      width: 200px;
+      height: auto;
+      background-color: transparent;
+      margin:20px;
+      animation: fade 1.5s ease-in-out;
+    }
+    #img1{position:absolute;
+    width:20vh;
+    height:20vh;
+    top: 40%;
+    right:10%;}
+    #img2{position:absolute;
+    top: 60%;
+    left:1%;
+    width:20vh;
+    height:20vh;
+    }
+    #img3{position:absolute;
+    top: 5%;
+    width:20vh;
+    height:15vh;
+   left:20%;}    
+
+    @keyframes fade {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+<audio id="audio" src="music.mp3" preload="auto"></audio>
+
+
+  <div id="ritu"><b>hyy ritu</b></div>
+  <div id="message"><b>Will you be my Soulmate</b></div>
+
+  <!-- Images -->
+  <img id="img1" class="album-img" src="image.png" alt="Image 1">
+  <img id="img2" class="album-img" src="image2.png" alt="Image 2">
+  <img id="img3" class="album-img" src="image3.png" alt="Image 3">
+
+  <script>
+    const colors = ['pink', 'blue', 'yellow'];
+    const shapes = ['heart', 'star'];
+
+    // Start falling shapes after 2s
+    setTimeout(() => {
+      let count = 0;
+      const interval = setInterval(() => {
+        const shape = document.createElement('div');
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const type = shapes[Math.floor(Math.random() * shapes.length)];
+
+        shape.classList.add('shape', type);
+        shape.style.background = color;
+        shape.style.left = Math.random() * window.innerWidth + 'px';
+
+        document.body.appendChild(shape);
+        setTimeout(() => shape.remove(), 3000);
+        count++;
+        if (count > 100) clearInterval(interval);
+      }, 70);
+    }, 2000);
+
+    // Show message and images in sequence
+    setTimeout(() => {
+      document.getElementById('message').style.display = 'block';
+
+      setTimeout(() => {
+        document.getElementById('img1').style.display = 'block';
+      }, 1000);
+
+      setTimeout(() => {
+        document.getElementById('img2').style.display = 'block';
+      }, 2500);
+
+      setTimeout(() => {
+        document.getElementById('img3').style.display = 'block';
+      }, 4000);
+    }, 5000);
+    const audio = document.getElementById('audio');
+    
+    // Add an event listener to the entire document to play audio on click
+    document.addEventListener('click', function() {
+    audio.play();  // Play the audio when the document is clicked
+    });
+  </script>
+</body>
+</html>
+
+
